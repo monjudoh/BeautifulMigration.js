@@ -1,6 +1,6 @@
 define('BeautifulMigration',
-['underscore'],
-function (_) {
+[],
+function () {
   /**
    * @version 0.1.0
    * @author monjudoh
@@ -18,6 +18,16 @@ function (_) {
     this.key = key;
   }
 
+  /**
+   * @function BeautifulMigration~compactOperations
+   * @param {Array.<function=>} operations
+   * @returns {Array.<function>}
+   */
+  function compactOperations(operations) {
+    return operations.filter(function(operation){
+      return typeof operation === 'function';
+    })
+  }
   var versionUpOperations = Object.create(null);
   var storageKeyRetriever = function defaultStorageKeyRetriever(key){
     return ['BeautifulMigration',key].join('.');
@@ -62,7 +72,7 @@ function (_) {
   };
   function versionUp(key,previousVersion,currentVersion) {
     var storageKey = storageKeyRetriever(key);
-    var operations = _.compact(versionUpOperations[key].slice(previousVersion+1,currentVersion+1));
+    var operations = compactOperations(versionUpOperations[key].slice(previousVersion+1,currentVersion+1));
     function updateLocalStorage(){
       localStorage[storageKey] = JSON.stringify(currentVersion);
     }
