@@ -1,31 +1,17 @@
-/*
- * BeautifulMigration.js
- *
- * https://github.com/monjudoh/BeautifulMigration.js
- * version: 0.0.1
- *
- * Copyright (c) 2013 monjudoh
- * Dual licensed under the MIT (MIT-LICENSE.txt)
- * and GPL (GPL-LICENSE.txt) licenses.
- */
-/**
- * @module BeautifulMigration
- * @version 0.0.1
- * @author monjudoh
- * @copyright (c) 2013 monjudoh<br/>
- * Dual licensed under the MIT (MIT-LICENSE.txt)<br/>
- * and GPL (GPL-LICENSE.txt) licenses.
- * @see https://github.com/monjudoh/BeautifulMigration.js
- * @see BeautifulMigration
- */
 define('BeautifulMigration',
 ['underscore'],
 function (_) {
   /**
+   * @version 0.1.0
+   * @author monjudoh
+   * @copyright <pre>(c) 2013 monjudoh
+   * Dual licensed under the MIT (MIT-LICENSE.txt)
+   * and GPL (GPL-LICENSE.txt) licenses.</pre>
+   * @see https://github.com/monjudoh/BeautifulMigration.js
+   *
    * @name BeautifulMigration
    * @param {string} key
    * @constructor
-   *
    * @property {string} key
    */
   function BeautifulMigration(key) {
@@ -38,9 +24,9 @@ function (_) {
   };
   /**
    * @callback BeautifulMigration~versionUpOperation
-   * @returns {promise=}
-   * @description バージョンアップ処理。<br/>
-   * 同期処理の場合は何も返さない。非同期処理の場合はpromiseを返し、非同期処理の完了時にresolveする。
+   * @returns {Promise=}
+   * @description <pre>バージョンアップ処理。
+   * 同期処理の場合は何も返さない。非同期処理の場合はPromiseを返し、非同期処理の完了時にresolveする。</pre>
    */
   /**
    * @name registerVersionUpOperation
@@ -101,18 +87,18 @@ function (_) {
    * @function
    *
    * @param {number} currentVersion 現在のバージョン
-   * @returns {promise}
-   * @description 現在のバージョンを指定してマイグレーションを行う。<br/>
-   * localStorageに記録された前回起動時のバージョンと指定された現在のバージョンを比較してマイグレーションを行う。<br/>
-   * マイグレーションの処理が完了すると戻り値のpromiseのdone callbackが呼ばれる。<br/>
-   * - 初回起動時<br/>
-   * -- TODO実装<br/>
-   * - 同一バージョン時<br/>
-   * -- 何もしない<br/>
-   * - バージョンアップ時<br/>
-   * -- 前回起動時のバージョン+1〜指定された現在のバージョンについてのバージョンアップ処理が呼ばれる。<br/>
-   * - バージョンダウン時<br/>
+   * @returns {Promise}
+   * @description <pre>現在のバージョンを指定してマイグレーションを行う。
+   * localStorageに記録された前回起動時のバージョンと指定された現在のバージョンを比較してマイグレーションを行う。
+   * マイグレーションの処理が完了すると戻り値のPromiseのfulfilled callbackが呼ばれる。
+   * - 初回起動時
    * -- TODO実装
+   * - 同一バージョン時
+   * -- 何もしない
+   * - バージョンアップ時
+   * -- 前回起動時のバージョン+1〜指定された現在のバージョンについてのバージョンアップ処理が呼ばれる。
+   * - バージョンダウン時
+   * -- TODO実装</pre>
    * @see BeautifulMigration#key
    * @see BeautifulMigration.registerVersionUpOperation
    * @see BeautifulMigration~versionUpOperation
