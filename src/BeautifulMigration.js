@@ -19,8 +19,8 @@
  * @see BeautifulMigration
  */
 define('BeautifulMigration',
-['underscore','jquery'],
-function (_,$) {
+['underscore'],
+function (_) {
   /**
    * @name BeautifulMigration
    * @param {string} key
@@ -81,7 +81,7 @@ function (_,$) {
       localStorage[storageKey] = JSON.stringify(currentVersion);
     }
     operations.push(updateLocalStorage);
-    operations.unshift($.Deferred().resolve().promise());
+    operations.unshift(Promise.resolve());
     var promise = operations.reduce(function(promise,operation){
       var index = versionUpOperations[key].indexOf(operation);
       return promise.then(function done(){
@@ -118,7 +118,6 @@ function (_,$) {
    * @see BeautifulMigration~versionUpOperation
    */
   proto.migrate = function migrate(currentVersion){
-    var dfd = $.Deferred();
     // storageKey
     var storageKey = storageKeyRetriever(this.key);
     var previousVersion = JSON.parse(localStorage[storageKey] || 'null');
@@ -127,11 +126,11 @@ function (_,$) {
       // 初回起動時処理
       console.info('初回起動時処理');
       localStorage[storageKey] = JSON.stringify(currentVersion);
-      dfd.resolve();
+      return Promise.resolve();
     } else if (currentVersion === previousVersion) {
       // 同一バージョンなので何もしない
       console.info('同一バージョンなので何もしない');
-      dfd.resolve();
+      return Promise.resolve();
     } else if (currentVersion > previousVersion) {
       // バージョンアップ処理
       console.info('バージョンアップ処理');
@@ -139,12 +138,12 @@ function (_,$) {
     } else if (currentVersion < previousVersion) {
       // バージョンダウン処理
       console.info('バージョンダウン処理');
-      dfd.resolve();
+      return Promise.resolve();
     } else {
       // localStorageのデータが何かおかしい
       console.info('localStorageのデータが何かおかしい');
+      return Promise.reject();
     }
-    return dfd.promise();
   };
 
   return BeautifulMigration;
