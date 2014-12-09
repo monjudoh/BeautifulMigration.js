@@ -6,7 +6,7 @@ Links
 =====
 
 - `Repository <https://github.com/monjudoh/BeautifulMigration.js>`_
-- `Reference <http://monjudoh.github.io/BeautifulMigration.js/doc/index.html>`_
+- `Reference <http://monjudoh.github.io/BeautifulMigration.js/docs/index.html>`_
 
 Author
 ======
